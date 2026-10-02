@@ -7,7 +7,7 @@
     "test": "vitest run",
     "ask": "tsx scripts/ask.ts",
     "build": "esbuild src/index.ts --bundle --platform=node --target=node16 --format=cjs --minify --sourcemap --sources-content=false --legal-comments=none --outfile=lambda/index.js",
-    "package": "npm run build && mkdir -p dist && rm -f dist/lambda.zip && cd lambda && zip -q ../dist/lambda.zip index.js index.js.map package.json && cd .. && ls -lh dist/lambda.zip"
+    "package": "npm run build && mkdir -p dist && rm -f dist/lambda.zip && zip -q dist/lambda.zip lambda/index.js lambda/index.js.map lambda/package.json && ls -lh dist/lambda.zip"
   },
   "repository": {
     "type": "git",
