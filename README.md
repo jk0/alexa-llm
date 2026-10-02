@@ -1,6 +1,6 @@
 # alexa-llm
 
-An Alexa skill for talking to Claude. Say "Alexa, ask claude …" or "Alexa, open claude", then keep talking: the skill keeps the session open between turns.
+An Alexa skill for talking to Claude. Say "Alexa, ask claude chat …" or "Alexa, open claude chat", then keep talking: the skill keeps the session open between turns.
 
 ```
 Echo ──► Alexa ──► Alexa-hosted Lambda (src/, Node 16) ──► Claude Haiku 4.5 (Anthropic API)
@@ -62,7 +62,7 @@ You need Node 22.12 or later on your own machine for building and testing (the s
 
    On the *Code* tab, click *Import Code*, choose `dist/lambda.zip`, import all files, then click *Deploy*.
 
-6. **Test.** On the *Test* tab, set *Skill testing* to *Development* and type or say "ask claude why is the sky blue". It now works on your Echo too.
+6. **Test.** On the *Test* tab, set *Skill testing* to *Development* and type or say "ask claude chat why is the sky blue". It now works on your Echo too.
 
 Logs are under *Code*, then *CloudWatch Logs* (choose the US East region).
 
