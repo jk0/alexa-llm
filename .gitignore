@@ -1,0 +1,6 @@
+node_modules/
+dist/
+lambda/index.js
+lambda/index.js.map
+*.log
+.DS_Store

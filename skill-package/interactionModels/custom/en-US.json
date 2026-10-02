@@ -1,0 +1,58 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "claude",
+      "intents": [
+        {
+          "name": "ChatIntent",
+          "slots": [{ "name": "query", "type": "CATCH_ALL" }],
+          "samples": ["{query}"]
+        },
+        {
+          "name": "NewConversationIntent",
+          "slots": [],
+          "samples": [
+            "new conversation",
+            "start a new conversation",
+            "reset",
+            "reset the conversation",
+            "forget everything",
+            "clear the conversation"
+          ]
+        },
+        { "name": "AMAZON.StartOverIntent", "samples": [] },
+        { "name": "AMAZON.HelpIntent", "samples": [] },
+        { "name": "AMAZON.StopIntent", "samples": [] },
+        { "name": "AMAZON.CancelIntent", "samples": [] },
+        { "name": "AMAZON.NavigateHomeIntent", "samples": [] }
+      ],
+      "types": [
+        {
+          "name": "CATCH_ALL",
+          "values": [
+            { "name": { "value": "hello" } },
+            { "name": { "value": "what time is it in tokyo" } },
+            { "name": { "value": "why is the sky blue" } },
+            { "name": { "value": "tell me a joke" } },
+            { "name": { "value": "how do I make cold brew coffee" } },
+            { "name": { "value": "what should I make for dinner tonight" } },
+            { "name": { "value": "explain how a heat pump works" } },
+            { "name": { "value": "give me a quick summary of the french revolution" } },
+            { "name": { "value": "what's the difference between a crocodile and an alligator" } },
+            { "name": { "value": "help me think of a name for my new puppy" } },
+            { "name": { "value": "how many tablespoons are in a quarter cup" } },
+            { "name": { "value": "what are some good books like project hail mary" } },
+            { "name": { "value": "can you explain that again more simply" } },
+            { "name": { "value": "what about the second one" } },
+            { "name": { "value": "convert seventy two fahrenheit to celsius" } },
+            { "name": { "value": "what is the capital of australia and why isn't it sydney" } },
+            { "name": { "value": "write me a short poem about autumn leaves falling in the park" } },
+            { "name": { "value": "I'm trying to decide between two job offers one pays more but the other has better hours what should I think about" } },
+            { "name": { "value": "yes" } },
+            { "name": { "value": "go on" } }
+          ]
+        }
+      ]
+    }
+  }
+}

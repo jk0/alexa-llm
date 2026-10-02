@@ -1,0 +1,6 @@
+{
+  "name": "alexa-llm-lambda",
+  "private": true,
+  "description": "Built by `npm run build` in the repo root. Do not edit; dependencies are bundled into index.js.",
+  "main": "index.js"
+}
