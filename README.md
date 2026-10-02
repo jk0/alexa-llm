@@ -39,7 +39,7 @@ Don't bump `@aws-sdk/*` unless the skill moves to a newer runtime.
 
 ## Setup
 
-You need Node 22 or later locally, an [Anthropic API key](https://console.anthropic.com/settings/keys), and an [Amazon developer account](https://developer.amazon.com/alexa/console/ask) on the same Amazon login as your Echo.
+You need Node 22.12 or later on your own machine for building and testing (the skill itself runs on Node 16, as above), an [Anthropic API key](https://console.anthropic.com/settings/keys), and an [Amazon developer account](https://developer.amazon.com/alexa/console/ask) on the same Amazon login as your Echo.
 
 1. **Check your key works:**
 
