@@ -14,6 +14,20 @@ Echo ──► Alexa ──► Alexa-hosted Lambda (src/, Node 16) ──► Cla
 - **Latency:** Alexa allows about 8 seconds per response. The skill plays "One moment" while Claude works and gives up on Claude after 6.5 seconds.
 - **Privacy:** the skill stays in development mode, so only devices on your Amazon account can use it.
 
+## Usage
+
+The invocation name is **claude chat**. Alexa only matches it exactly, so "claude" or "claude code" won't find the skill.
+
+| Say | What happens |
+|---|---|
+| "Alexa, open claude chat" | Opens the skill: "Hi, it's Claude. What's on your mind?" |
+| "Alexa, ask claude chat why is the sky blue" | Asks one question; the session then stays open for follow-ups |
+| *(in a session)* anything | Goes to Claude, with the conversation so far |
+| "new conversation" / "start over" | Clears the history |
+| "stop" / "cancel" | Ends the session |
+
+After each answer, the Echo listens for about 8 seconds, asks "Anything else?", and listens 8 seconds more before closing. History survives the session closing: a request within the next hour continues the same conversation.
+
 ## Layout
 
 | Path | What |
@@ -50,7 +64,7 @@ You need Node 22.12 or later on your own machine for building and testing (the s
 
 2. **Create the skill.** In the [Alexa developer console](https://developer.amazon.com/alexa/console/ask), click *Create Skill*. Name it *Claude* and choose English (US), then pick *Other*, then *Custom*, then *Alexa-hosted (Node.js)*. Choose hosting region *US East (N. Virginia)* and the *Start from Scratch* template.
 
-3. **Interaction model.** On the *Build* tab, open *Interaction Model*, then *JSON Editor*. Paste in `skill-package/interactionModels/custom/en-US.json`, click *Save*, then *Build skill*.
+3. **Interaction model.** On the *Build* tab, open *Interaction Model*, then *JSON Editor*. Select all of the template's JSON and replace it with `skill-package/interactionModels/custom/en-US.json` (`pbcopy < skill-package/interactionModels/custom/en-US.json` copies it). Click *Save*, then *Build skill*. Afterwards, *Invocations* should show **claude chat**, and *Intents* should list `ChatIntent` and `NewConversationIntent`, with no `HelloWorldIntent` or `FallbackIntent`.
 
 4. **API key.** On the *Code* tab, click *Media storage* at the bottom left to open the skill's S3 bucket. Go into the `Media/` folder and upload a text file named `anthropic-api-key.txt` that contains only your key.
 
@@ -65,6 +79,19 @@ You need Node 22.12 or later on your own machine for building and testing (the s
 6. **Test.** On the *Test* tab, set *Skill testing* to *Development* and type or say "ask claude chat why is the sky blue". It now works on your Echo too.
 
 Logs are under *Code*, then *CloudWatch Logs* (choose the US East region).
+
+**Which button ships what:**
+- **Build skill** (Build tab) ships interaction-model changes.
+- **Deploy** (Code tab) ships code changes.
+
+### Troubleshooting
+
+| Alexa says | Cause |
+|---|---|
+| "I'm not quite sure how to help you with that." | Alexa didn't route to the skill. Check that you said "claude chat", that *Test* is set to *Development*, and that the locale is English (US). |
+| "Sorry, I didn't catch that. Try asking again." | The template's interaction model is still active, so `FallbackIntent` caught the request. Redo step 3. |
+| "Sorry, I couldn't reach Claude just now." | API key problem. Check `Media/anthropic-api-key.txt` and the CloudWatch logs. Unscoped keys fail with an `anthropic-workspace-id` error, so create the key inside a workspace. |
+| "Sorry, that took too long to think through." | Claude took longer than 6.5 seconds. Ask for a shorter answer. |
 
 ## Configuration
 
@@ -92,6 +119,6 @@ Alexa-hosted hosting is free within its usage limits. You pay only for Claude to
 
 ## Roadmap
 
-- **Claude Code tasks:** "Alexa, tell claude to fix the failing tests in alexa-llm." The skill fires a Claude Code [routine](https://code.claude.com/docs/en/routines) API trigger, and a later turn reads back the result.
+- **Claude Code tasks:** "Alexa, ask claude chat to fix the failing tests in alexa-llm." The skill fires a Claude Code [routine](https://code.claude.com/docs/en/routines) API trigger, and a later turn reads back the result.
   - Alexa-hosted can't receive webhooks, so the routine needs to put its summary somewhere the skill can read, such as a GitHub comment or PR.
   - Alternatively, move the backend to your own AWS account, where a Lambda URL can receive the routine's webhook.
